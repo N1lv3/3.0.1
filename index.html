@@ -1,0 +1,2542 @@
+<!DOCTYPE html> <html lang="ru">
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Check</title>
+    <style>
+         :root {
+    --primary-color: #6a0dad;
+    --secondary-color: #8a2be2;
+    --accent-color: #9370db;
+    --text-color: #333;
+    --bg-color: #f5f5f5;
+    --card-bg: #fff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+.dark-theme {
+    --primary-color: #8a2be2;
+    --secondary-color: #6a0dad;
+    --accent-color: #9370db;
+    --text-color: #f5f5f5;
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: var(--transition);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Анимация падающей сакуры */
+.sakura-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.sakura {
+    position: absolute;
+    top: -50px;
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(135deg, #ffb7c5, #ff69b4);
+    border-radius: 50% 50% 50% 0;
+    opacity: 0.7;
+    animation: fall linear infinite;
+}
+
+.sakura:nth-child(2n) {
+    background: linear-gradient(135deg, #ffb7c5, #ff1493);
+}
+
+.sakura:nth-child(3n) {
+    background: linear-gradient(135deg, #ffb7c5, #c71585);
+    width: 12px;
+    height: 12px;
+}
+
+.sakura:nth-child(4n) {
+    background: linear-gradient(135deg, #ffb7c5, #db7093);
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh) rotate(360deg);
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--accent-color);
+    margin-bottom: 30px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 15px 20px;
+    box-shadow: var(--shadow);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-right: 10px;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    color: var(--primary-color);
+    transform: rotate(30deg);
+}
+
+.page {
+    display: none;
+    animation: fadeIn 0.5s ease;
+}
+
+.active {
+    display: block;
+}
+
+.card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: var(--shadow);
+    margin-bottom: 25px;
+    transition: var(--transition);
+    border: 1px solid rgba(106, 13, 173, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+.btn-secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.btn-success {
+    background-color: #28a745;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+}
+
+/* Цветные кнопки для статуса повреждений */
+.damage-buttons {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+}
+
+.damage-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.damage-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.damage-btn.active {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 3px rgba(255,255,255,0.5), 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.btn-no-damage {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.btn-no-damage:hover {
+    background: linear-gradient(135deg, #45a049, #4CAF50);
+}
+
+.btn-yes-damage {
+    background: linear-gradient(135deg, #ff6b6b, #ff5252);
+    color: white;
+}
+
+.btn-yes-damage:hover {
+    background: linear-gradient(135deg, #ff5252, #ff6b6b);
+}
+
+.damage-btn i {
+    font-size: 1.3rem;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.camera-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+#video, #photo {
+    width: 100%;
+    display: block;
+}
+
+.camera-controls {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+}
+
+.capture-btn, .camera-switch-btn {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    transition: var(--transition);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.capture-btn:hover, .camera-switch-btn:hover {
+    background-color: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+.photo-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.photo-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.photo-item:hover {
+    transform: scale(1.05);
+}
+
+.photo-item img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+}
+
+.photo-info {
+    padding: 10px;
+    background-color: var(--card-bg);
+}
+
+.photo-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.photo-actions button {
+    padding: 5px 10px;
+    font-size: 0.8rem;
+}
+
+.admin-login {
+    max-width: 400px;
+    margin: 50px auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(106, 13, 173, 0.2);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.file-upload {
+    border: 2px dashed #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    margin-bottom: 15px;
+}
+
+.file-upload:hover {
+    border-color: var(--primary-color);
+    background-color: rgba(106, 13, 173, 0.05);
+}
+
+.file-upload i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.file-preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+}
+
+.file-item img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.file-info {
+    flex: 1;
+}
+
+.file-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.file-size {
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.file-remove {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.attached-files {
+    margin-top: 15px;
+}
+
+.file-attachment {
+    display: inline-flex;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.file-attachment i {
+    margin-right: 8px;
+    color: var(--primary-color);
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.status-pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-approved {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.status-completed {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.grade-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 10px;
+    background-color: #6f42c1;
+    color: white;
+}
+
+.rejection-reason {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 10px;
+}
+
+.rejection-reason h4 {
+    color: #721c24;
+    margin-bottom: 8px;
+}
+
+.submissions-list, .tasks-list {
+    margin-top: 20px;
+}
+
+.submission-item, .task-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    transition: var(--transition);
+}
+
+.submission-item:hover, .task-item:hover {
+    background-color: rgba(106, 13, 173, 0.05);
+}
+
+.submission-info, .task-info {
+    flex: 1;
+}
+
+.submission-actions, .task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.admin-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.admin-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: var(--transition);
+    border-bottom: 3px solid transparent;
+}
+
+.admin-tab.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.admin-tab:hover {
+    color: var(--primary-color);
+    background-color: rgba(106, 13, 173, 0.1);
+}
+
+.admin-content {
+    display: none;
+}
+
+.admin-content.active {
+    display: block;
+}
+
+/* Python Editor Styles */
+.python-editor {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.editor-header {
+    background-color: #f8f9fa;
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.editor-tabs {
+    display: flex;
+    gap: 10px;
+}
+
+.editor-tab {
+    padding: 5px 15px;
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.editor-tab.active {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+.editor-content {
+    display: none;
+}
+
+.editor-content.active {
+    display: block;
+}
+
+#pythonCode {
+    width: 100%;
+    height: 300px;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    padding: 15px;
+    border: none;
+    resize: vertical;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+}
+
+.code-hints {
+    background-color: #f8f9fa;
+    border-top: 1px solid #ddd;
+    padding: 10px 15px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.hint-item {
+    padding: 5px 0;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+}
+
+.hint-item:hover {
+    background-color: #e9ecef;
+}
+
+.hint-item:last-child {
+    border-bottom: none;
+}
+
+.editor-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.output-container {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.student-account-tabs {
+    display: flex;
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.student-account-tab {
+    padding: 12px 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: var(--transition);
+    border-bottom: 3px solid transparent;
+}
+
+.student-account-tab.active {
+    color: var(--primary-color);
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.student-account-tab:hover {
+    color: var(--primary-color);
+    background-color: rgba(106, 13, 173, 0.1);
+}
+
+.student-account-content {
+    display: none;
+}
+
+.student-account-content.active {
+    display: block;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+    border-top: 1px solid var(--accent-color);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    background-color: var(--card-bg);
+    border-radius: 12px 12px 0 0;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    background-color: var(--card-bg);
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    transform: translateX(150%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.success {
+    border-left: 4px solid #28a745;
+}
+
+.notification.error {
+    border-left: 4px solid #dc3545;
+}
+
+.notification.warning {
+    border-left: 4px solid #ffc107;
+}
+
+.notification i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1001;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.user-info {
+    background: var(--card-bg);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .nav-buttons {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .damage-buttons {
+        flex-direction: column;
+    }
+    
+    .damage-btn {
+        min-width: 100%;
+    }
+    
+    .submission-item, .task-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .submission-actions, .task-actions {
+        margin-top: 10px;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .admin-tabs, .student-account-tabs {
+        flex-direction: column;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .editor-tabs {
+        flex-direction: column;
+    }
+    
+    .camera-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+    </style>
+     <!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workplace Check</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Анимация падающей сакуры -->
+    <div class="sakura-container" id="sakuraContainer"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-laptop-house"></i>
+                Workplace Check
+            </div>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </header>
+
+        <!-- Главная страница -->
+        <div id="homePage" class="page active">
+            <div class="card">
+                <h1>Добро пожаловать в Workplace Check</h1>
+                <p>Это приложение поможет вам зафиксировать состояние рабочего места до начала работы и после её окончания.</p>
+                
+                <div class="user-info">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="userName">ФИО:</label>
+                            <input type="text" id="userName" placeholder="Введите ваше ФИО">
+                        </div>
+                        <div class="form-group">
+                            <label for="computerNumber">Номер компьютера:</label>
+                            <input type="text" id="computerNumber" placeholder="Введите номер компьютера">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="btn" onclick="startCheck()">
+                        <i class="fas fa-camera"></i> Начать проверку
+                    </button>
+                    <button class="btn btn-secondary" onclick="showPage('adminLoginPage')">
+                        <i class="fas fa-user-shield"></i> Панель администратора
+                    </button>
+                    <button class="btn btn-warning" onclick="showTasksPage()">
+                        <i class="fas fa-tasks"></i> Задания
+                    </button>
+                    <button class="btn btn-info" onclick="showStudentAccount()">
+                        <i class="fas fa-user"></i> Мой аккаунт
+                    </button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Последние проверки</h2>
+                <div id="recentChecks">
+                    <!-- Здесь будут отображаться последние проверки -->
+                    <p>У вас пока нет завершенных проверок</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница проверки рабочего места -->
+        <div id="checkPage" class="page">
+            <div class="card">
+                <h2>Проверка рабочего места</h2>
+                
+                <div class="user-info">
+                    <p><strong>ФИО:</strong> <span id="currentUserName"></span></p>
+                    <p><strong>Номер компьютера:</strong> <span id="currentComputerNumber"></span></p>
+                </div>
+                
+                <p id="checkInstruction">Сфотографируйте рабочее место перед началом работы</p>
+                
+                <div class="camera-container">
+                    <video id="video" autoplay></video>
+                    <canvas id="canvas" style="display:none;"></canvas>
+                    <div class="camera-controls">
+                        <button class="capture-btn" id="captureBtn">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                        <button class="camera-switch-btn" id="cameraSwitchBtn">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="photoPreview" class="photo-preview">
+                    <!-- Здесь будут отображаться сделанные фото -->
+                </div>
+                
+                <div class="form-group">
+                    <label>Есть ли повреждения на рабочем месте?</label>
+                    <div class="damage-buttons">
+                        <button class="damage-btn btn-no-damage" onclick="setDamageStatus(false)">
+                            <i class="fas fa-check-circle"></i>
+                            Нет повреждений
+                        </button>
+                        <button class="damage-btn btn-yes-damage" onclick="setDamageStatus(true)">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Есть повреждения
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group" id="damageDescription" style="display:none;">
+                    <label for="damageDetails">Опишите повреждения:</label>
+                    <textarea id="damageDetails" class="form-control" rows="3" placeholder="Опишите подробно все обнаруженные повреждения..."></textarea>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="showPage('homePage')">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button class="btn" id="submitCheckBtn" onclick="submitCheck()">
+                        <i class="fas fa-paper-plane"></i> Отправить отчет
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница заданий -->
+        <div id="tasksPage" class="page">
+            <div class="card">
+                <h2>Задания на урок</h2>
+                
+                <div class="user-info">
+                    <p><strong>ФИО:</strong> <span id="tasksUserName"></span></p>
+                    <p><strong>Номер компьютера:</strong> <span id="tasksComputerNumber"></span></p>
+                </div>
+                
+                <p>Здесь вы можете просмотреть задания от преподавателя и отправить выполненные работы.</p>
+                
+                <div class="tasks-list" id="tasksList">
+                    <!-- Здесь будут отображаться задания -->
+                    <p>Загрузка заданий...</p>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="showPage('homePage')">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница личного кабинета студента -->
+        <div id="studentAccountPage" class="page">
+            <div class="card">
+                <h2>Мой аккаунт</h2>
+                
+                <div class="user-info">
+                    <p><strong>ФИО:</strong> <span id="accountUserName"></span></p>
+                    <p><strong>Номер компьютера:</strong> <span id="accountComputerNumber"></span></p>
+                </div>
+
+                <div class="student-account-tabs">
+                    <button class="student-account-tab active" onclick="switchStudentTab('reports')">Мои отчеты</button>
+                    <button class="student-account-tab" onclick="switchStudentTab('grades')">Мои оценки</button>
+                    <button class="student-account-tab" onclick="switchStudentTab('python')">Python редактор</button>
+                </div>
+
+                <!-- Вкладка отчетов -->
+                <div id="studentReportsTab" class="student-account-content active">
+                    <h3>История моих отчетов</h3>
+                    <div id="studentReportsList">
+                        <!-- Здесь будут отображаться отчеты студента -->
+                        <p>Загрузка отчетов...</p>
+                    </div>
+                </div>
+
+                <!-- Вкладка оценок -->
+                <div id="studentGradesTab" class="student-account-content">
+                    <h3>Мои оценки за задания</h3>
+                    <div id="studentGradesList">
+                        <!-- Здесь будут отображаться оценки -->
+                        <p>Загрузка оценок...</p>
+                    </div>
+                </div>
+
+                <!-- Вкладка Python редактора -->
+                <div id="studentPythonTab" class="student-account-content">
+                    <h3>Python редактор</h3>
+                    <p>Используйте этот редактор для написания Python кода. Доступны подсказки для облегчения работы.</p>
+                    
+                    <div class="python-editor">
+                        <div class="editor-header">
+                            <div class="editor-tabs">
+                                <button class="editor-tab active" onclick="switchEditorTab('code')">Код</button>
+                                <button class="editor-tab" onclick="switchEditorTab('hints')">Подсказки</button>
+                                <button class="editor-tab" onclick="switchEditorTab('output')">Вывод</button>
+                            </div>
+                        </div>
+                        
+                        <div id="codeTab" class="editor-content active">
+                            <textarea id="pythonCode" placeholder="Введите ваш Python код здесь...">print("Hello, World!")</textarea>
+                        </div>
+                        
+                        <div id="hintsTab" class="editor-content">
+                            <div class="code-hints" id="codeHints">
+                                <!-- Подсказки будут здесь -->
+                            </div>
+                        </div>
+                        
+                        <div id="outputTab" class="editor-content">
+                            <div class="output-container" id="pythonOutput">
+                                <!-- Вывод кода будет здесь -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="editor-actions">
+                        <button class="btn btn-success" onclick="runPythonCode()">
+                            <i class="fas fa-play"></i> Запустить код
+                        </button>
+                        <button class="btn btn-secondary" onclick="savePythonCode()">
+                            <i class="fas fa-save"></i> Сохранить код
+                        </button>
+                        <button class="btn btn-info" onclick="loadPythonCode()">
+                            <i class="fas fa-folder-open"></i> Загрузить код
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="showPage('homePage')">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница входа для администратора -->
+        <div id="adminLoginPage" class="page">
+            <div class="card admin-login">
+                <h2>Вход для администратора</h2>
+                <p>Для доступа к панели администратора введите код доступа:</p>
+                
+                <div class="form-group">
+                    <label for="adminCode">Код доступа:</label>
+                    <input type="password" id="adminCode" placeholder="Введите код доступа">
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="showPage('homePage')">
+                        <i class="fas fa-arrow-left"></i> Назад
+                    </button>
+                    <button class="btn" onclick="loginAdmin()">
+                        <i class="fas fa-sign-in-alt"></i> Войти
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Панель администратора -->
+        <div id="adminPanel" class="page">
+            <div class="card">
+                <div class="admin-tabs">
+                    <button class="admin-tab active" onclick="switchAdminTab('reports')">Отчеты</button>
+                    <button class="admin-tab" onclick="switchAdminTab('tasks')">Управление заданиями</button>
+                    <button class="admin-tab" onclick="switchAdminTab('grading')">Оценивание работ</button>
+                </div>
+                
+                <!-- Вкладка отчетов -->
+                <div id="reportsTab" class="admin-content active">
+                    <h2>Отчеты о рабочих местах</h2>
+                    <p>Здесь вы можете просматривать и управлять отчетами о состоянии рабочих мест.</p>
+                    
+                    <div class="submissions-list" id="submissionsList">
+                        <!-- Здесь будут отображаться отправленные отчеты -->
+                        <p>Загрузка отчетов...</p>
+                    </div>
+                </div>
+                
+                <!-- Вкладка заданий -->
+                <div id="tasksTab" class="admin-content">
+                    <h2>Управление заданиями</h2>
+                    
+                    <div class="form-group">
+                        <label for="newTaskTitle">Название задания:</label>
+                        <input type="text" id="newTaskTitle" placeholder="Введите название задания">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newTaskDescription">Описание задания:</label>
+                        <textarea id="newTaskDescription" rows="4" placeholder="Опишите задание подробно..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Прикрепить файлы к заданию:</label>
+                        <div class="file-upload" onclick="document.getElementById('taskFiles').click()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Нажмите для загрузки файлов или перетащите их сюда</p>
+                            <input type="file" id="taskFiles" multiple style="display: none" onchange="handleTaskFiles(this.files)">
+                        </div>
+                        <div class="file-preview" id="taskFilesPreview"></div>
+                    </div>
+                    
+                    <button class="btn" onclick="createTask()">
+                        <i class="fas fa-plus"></i> Создать задание
+                    </button>
+                    
+                    <div class="tasks-list" id="adminTasksList" style="margin-top: 30px;">
+                        <!-- Здесь будут отображаться задания -->
+                        <p>Загрузка заданий...</p>
+                    </div>
+                </div>
+
+                <!-- Вкладка оценивания -->
+                <div id="gradingTab" class="admin-content">
+                    <h2>Оценивание работ студентов</h2>
+                    <p>Здесь вы можете просматривать решения студентов и выставлять оценки.</p>
+                    
+                    <div class="tasks-list" id="gradingTasksList">
+                        <!-- Здесь будут отображаться задания для оценивания -->
+                        <p>Загрузка заданий...</p>
+                    </div>
+                </div>
+                
+                <div class="nav-buttons">
+                    <button class="btn btn-secondary" onclick="logoutAdmin()">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для отклонения отчета -->
+    <div id="rejectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Отклонение отчета</h3>
+                <button class="modal-close" onclick="closeRejectModal()">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="rejectReason">Причина отклонения:</label>
+                <textarea id="rejectReason" rows="4" placeholder="Укажите причину отклонения отчета..."></textarea>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="closeRejectModal()">Отмена</button>
+                <button class="btn btn-danger" onclick="confirmReject()">Отклонить отчет</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для отправки решения -->
+    <div id="submitSolutionModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="solutionModalTitle">Отправка решения</h3>
+                <button class="modal-close" onclick="closeSolutionModal()">&times;</button>
+            </div>
+            
+            <div class="user-info">
+                <p><strong>ФИО:</strong> <span id="solutionUserName"></span></p>
+                <p><strong>Номер компьютера:</strong> <span id="solutionComputerNumber"></span></p>
+            </div>
+
+            <div class="form-group">
+                <label for="solutionText">Ваше решение:</label>
+                <textarea id="solutionText" rows="6" placeholder="Опишите ваше решение задания..."></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Прикрепить файлы к решению:</label>
+                <div class="file-upload" onclick="document.getElementById('solutionFiles').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Нажмите для загрузки файлов или перетащите их сюда</p>
+                    <input type="file" id="solutionFiles" multiple style="display: none" onchange="handleSolutionFiles(this.files)">
+                </div>
+                <div class="file-preview" id="solutionFilesPreview"></div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="closeSolutionModal()">Отмена</button>
+                <button class="btn btn-success" onclick="submitSolution()">Отправить решение</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно для выставления оценки -->
+    <div id="gradeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="gradeModalTitle">Выставление оценки</h3>
+                <button class="modal-close" onclick="closeGradeModal()">&times;</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="gradeValue">Оценка (1-10):</label>
+                <input type="number" id="gradeValue" min="1" max="10" value="5">
+            </div>
+
+            <div class="form-group">
+                <label for="gradeComment">Комментарий к оценке:</label>
+                <textarea id="gradeComment" rows="4" placeholder="Оставьте комментарий к работе..."></textarea>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="closeGradeModal()">Отмена</button>
+                <button class="btn btn-success" onclick="submitGrade()">Сохранить оценку</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Workplace Check &copy; 2025 | Контроль состояния рабочих мест</p>
+    </footer>
+
+    <div id="notification" class="notification">
+        <i class="fas fa-check-circle"></i>
+        <span id="notificationText">Уведомление</span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+    <script>
+         // Переменные состояния приложения
+let currentPage = 'homePage';
+let isDarkTheme = false;
+let stream = null;
+let photos = [];
+let isBeforeWork = true;
+let hasDamage = false;
+let currentRejectId = null;
+let currentTaskId = null;
+let currentGradingTaskId = null;
+let currentGradingSolutionIndex = null;
+let taskFiles = [];
+let solutionFiles = [];
+let currentCamera = 'environment'; // 'environment' для задней, 'user' для передней
+const ADMIN_CODE = 'admin123'; // Код доступа для администратора
+
+// Python подсказки
+const pythonHints = [
+    "print() - вывод текста на экран",
+    "input() - ввод данных от пользователя",
+    "len() - длина строки или списка",
+    "range() - создание последовательности чисел",
+    "if/elif/else - условные операторы",
+    "for/while - циклы",
+    "def - объявление функции",
+    "import - импорт модулей",
+    "list() - создание списка",
+    "dict() - создание словаря",
+    "str() - преобразование в строку",
+    "int() - преобразование в число",
+    "float() - преобразование в дробное число",
+    "sum() - сумма элементов",
+    "max()/min() - максимальное/минимальное значение"
+];
+
+// Элементы DOM
+const video = document.getElementById('video');
+const canvas = document.getElementById('canvas');
+const captureBtn = document.getElementById('captureBtn');
+const cameraSwitchBtn = document.getElementById('cameraSwitchBtn');
+const photoPreview = document.getElementById('photoPreview');
+const damageDescription = document.getElementById('damageDescription');
+const checkInstruction = document.getElementById('checkInstruction');
+const submitCheckBtn = document.getElementById('submitCheckBtn');
+const notification = document.getElementById('notification');
+const notificationText = document.getElementById('notificationText');
+const sakuraContainer = document.getElementById('sakuraContainer');
+const rejectModal = document.getElementById('rejectModal');
+const submitSolutionModal = document.getElementById('submitSolutionModal');
+const gradeModal = document.getElementById('gradeModal');
+
+// Инициализация приложения
+document.addEventListener('DOMContentLoaded', function() {
+    // Настройка переключения темы
+    document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+    
+    // Настройка камеры
+    setupCamera();
+    
+    // Создание анимации сакуры
+    createSakura();
+    
+    // Загрузка данных из localStorage
+    loadData();
+    
+    // Инициализация Python подсказок
+    initPythonHints();
+});
+
+// Инициализация Python подсказок
+function initPythonHints() {
+    const hintsContainer = document.getElementById('codeHints');
+    pythonHints.forEach(hint => {
+        const hintItem = document.createElement('div');
+        hintItem.className = 'hint-item';
+        hintItem.textContent = hint;
+        hintItem.onclick = function() {
+            insertHintToCode(hint);
+        };
+        hintsContainer.appendChild(hintItem);
+    });
+}
+
+function insertHintToCode(hint) {
+    const codeTextarea = document.getElementById('pythonCode');
+    const cursorPos = codeTextarea.selectionStart;
+    const textBefore = codeTextarea.value.substring(0, cursorPos);
+    const textAfter = codeTextarea.value.substring(cursorPos);
+    
+    // Вставляем подсказку в позицию курсора
+    codeTextarea.value = textBefore + hint.split(' - ')[0] + textAfter;
+    codeTextarea.focus();
+    
+    // Переключаемся на вкладку кода
+    switchEditorTab('code');
+}
+
+// Переключение вкладок редактора
+function switchEditorTab(tabName) {
+    document.querySelectorAll('.editor-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.editor-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    document.querySelector(`.editor-tab:nth-child(${tabName === 'code' ? 1 : tabName === 'hints' ? 2 : 3})`).classList.add('active');
+    document.getElementById(`${tabName}Tab`).classList.add('active');
+}
+
+// Запуск Python кода (эмуляция)
+function runPythonCode() {
+    const code = document.getElementById('pythonCode').value;
+    const output = document.getElementById('pythonOutput');
+    
+    // Эмуляция выполнения Python кода
+    let result = ">>> Выполнение кода:\n";
+    
+    try {
+        // Простая эмуляция вывода print
+        const printMatches = code.match(/print\(([^)]+)\)/g);
+        if (printMatches) {
+            printMatches.forEach(match => {
+                const content = match.replace(/print\((['"]?)(.*?)\1\)/, '$2');
+                result += content + '\n';
+            });
+        }
+        
+        // Эмуляция других конструкций
+        if (code.includes('input(')) {
+            result += "[Эмуляция input() - в реальной системе запросит ввод]\n";
+        }
+        if (code.includes('for ') || code.includes('while ')) {
+            result += "[Цикл выполнен]\n";
+        }
+        if (code.includes('def ')) {
+            result += "[Функция определена]\n";
+        }
+        
+        if (!printMatches && !code.includes('input(') && !code.includes('for ') && !code.includes('while ') && !code.includes('def ')) {
+            result += "Код выполнен успешно (без вывода)\n";
+        }
+        
+        result += "\n>>> Выполнение завершено";
+    } catch (error) {
+        result += "Ошибка выполнения: " + error.message;
+    }
+    
+    output.textContent = result;
+    switchEditorTab('output');
+}
+
+function savePythonCode() {
+    const code = document.getElementById('pythonCode').value;
+    localStorage.setItem('pythonCode', code);
+    showNotification('Код сохранен', 'success');
+}
+
+function loadPythonCode() {
+    const savedCode = localStorage.getItem('pythonCode');
+    if (savedCode) {
+        document.getElementById('pythonCode').value = savedCode;
+        showNotification('Код загружен', 'success');
+    } else {
+        showNotification('Сохраненный код не найден', 'warning');
+    }
+}
+
+// Создание анимации падающей сакуры
+function createSakura() {
+    const sakuraCount = 30;
+    
+    for (let i = 0; i < sakuraCount; i++) {
+        const sakura = document.createElement('div');
+        sakura.className = 'sakura';
+        
+        // Случайная позиция и анимация
+        const left = Math.random() * 100;
+        const animationDuration = 10 + Math.random() * 20;
+        const animationDelay = Math.random() * 20;
+        const size = 10 + Math.random() * 10;
+        
+        sakura.style.left = `${left}vw`;
+        sakura.style.animationDuration = `${animationDuration}s`;
+        sakura.style.animationDelay = `${animationDelay}s`;
+        sakura.style.width = `${size}px`;
+        sakura.style.height = `${size}px`;
+        
+        sakuraContainer.appendChild(sakura);
+    }
+}
+
+// Функции навигации
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => {
+        page.classList.remove('active');
+    });
+    document.getElementById(pageId).classList.add('active');
+    currentPage = pageId;
+    
+    // Специальные действия при переходе на страницы
+    if (pageId === 'checkPage') {
+        resetCheckForm();
+        startCamera();
+    } else if (pageId === 'tasksPage') {
+        loadTasks();
+    } else if (pageId === 'studentAccountPage') {
+        loadStudentAccount();
+    }
+}
+
+function showStudentAccount() {
+    const userName = document.getElementById('userName').value.trim();
+    const computerNumber = document.getElementById('computerNumber').value.trim();
+    
+    if (!userName || !computerNumber) {
+        showNotification('Пожалуйста, заполните ФИО и номер компьютера', 'warning');
+        return;
+    }
+    
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('computerNumber', computerNumber);
+    
+    showPage('studentAccountPage');
+    updateUserInfo();
+}
+
+function switchStudentTab(tabName) {
+    document.querySelectorAll('.student-account-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.student-account-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    const tabIndex = tabName === 'reports' ? 1 : tabName === 'grades' ? 2 : 3;
+    document.querySelector(`.student-account-tab:nth-child(${tabIndex})`).classList.add('active');
+    document.getElementById(`student${tabName.charAt(0).toUpperCase() + tabName.slice(1)}Tab`).classList.add('active');
+    
+    if (tabName === 'reports') {
+        loadStudentReports();
+    } else if (tabName === 'grades') {
+        loadStudentGrades();
+    }
+}
+
+function startCheck() {
+    const userName = document.getElementById('userName').value.trim();
+    const computerNumber = document.getElementById('computerNumber').value.trim();
+    
+    if (!userName || !computerNumber) {
+        showNotification('Пожалуйста, заполните ФИО и номер компьютера', 'warning');
+        return;
+    }
+    
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('computerNumber', computerNumber);
+    
+    showPage('checkPage');
+    updateUserInfo();
+}
+
+function showTasksPage() {
+    const userName = document.getElementById('userName').value.trim();
+    const computerNumber = document.getElementById('computerNumber').value.trim();
+    
+    if (!userName || !computerNumber) {
+        showNotification('Пожалуйста, заполните ФИО и номер компьютера', 'warning');
+        return;
+    }
+    
+    localStorage.setItem('userName', userName);
+    localStorage.setItem('computerNumber', computerNumber);
+    
+    showPage('tasksPage');
+    updateUserInfo();
+}
+
+function updateUserInfo() {
+    const userName = localStorage.getItem('userName') || '';
+    const computerNumber = localStorage.getItem('computerNumber') || '';
+    
+    document.getElementById('currentUserName').textContent = userName;
+    document.getElementById('currentComputerNumber').textContent = computerNumber;
+    document.getElementById('tasksUserName').textContent = userName;
+    document.getElementById('tasksComputerNumber').textContent = computerNumber;
+    document.getElementById('solutionUserName').textContent = userName;
+    document.getElementById('solutionComputerNumber').textContent = computerNumber;
+    document.getElementById('accountUserName').textContent = userName;
+    document.getElementById('accountComputerNumber').textContent = computerNumber;
+    
+    document.getElementById('userName').value = userName;
+    document.getElementById('computerNumber').value = computerNumber;
+}
+
+// Переключение вкладок в админке
+function switchAdminTab(tabName) {
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    document.querySelectorAll('.admin-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    const tabIndex = tabName === 'reports' ? 1 : tabName === 'tasks' ? 2 : 3;
+    document.querySelector(`.admin-tab:nth-child(${tabIndex})`).classList.add('active');
+    document.getElementById(`${tabName}Tab`).classList.add('active');
+    
+    if (tabName === 'reports') {
+        loadSubmissions();
+    } else if (tabName === 'tasks') {
+        loadAdminTasks();
+    } else if (tabName === 'grading') {
+        loadGradingTasks();
+    }
+}
+
+// Загрузка данных студента
+function loadStudentAccount() {
+    loadStudentReports();
+    loadStudentGrades();
+}
+
+function loadStudentReports() {
+    const studentReportsList = document.getElementById('studentReportsList');
+    const reports = getReports();
+    const userName = localStorage.getItem('userName');
+    
+    const studentReports = reports.filter(report => report.userName === userName);
+    
+    if (studentReports.length === 0) {
+        studentReportsList.innerHTML = '<p>У вас пока нет отправленных отчетов</p>';
+        return;
+    }
+    
+    studentReportsList.innerHTML = '';
+    
+    studentReports.forEach(report => {
+        const reportItem = document.createElement('div');
+        reportItem.className = 'submission-item card';
+        
+        const statusClass = `status-${report.status}`;
+        const statusText = report.status === 'pending' ? 'Ожидает' : 
+                         report.status === 'approved' ? 'Одобрено' : 'Отклонено';
+        
+        let rejectionHtml = '';
+        if (report.status === 'rejected' && report.rejectReason) {
+            rejectionHtml = `
+                <div class="rejection-reason">
+                    <h4>Причина отклонения:</h4>
+                    <p>${report.rejectReason}</p>
+                </div>
+            `;
+        }
+        
+        reportItem.innerHTML = `
+            <div class="submission-info">
+                <h3>Отчет #${report.id}</h3>
+                <p><strong>Дата:</strong> ${report.timestamp}</p>
+                <p><strong>Компьютер:</strong> ${report.computerNumber}</p>
+                <p><strong>Повреждения:</strong> ${report.hasDamage ? 'Да' : 'Нет'}</p>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+                ${rejectionHtml}
+            </div>
+        `;
+        
+        studentReportsList.appendChild(reportItem);
+    });
+}
+
+function loadStudentGrades() {
+    const studentGradesList = document.getElementById('studentGradesList');
+    const tasks = getTasks();
+    const userName = localStorage.getItem('userName');
+    
+    let hasGrades = false;
+    let gradesHtml = '';
+    
+    tasks.forEach(task => {
+        if (task.solutions) {
+            task.solutions.forEach((solution, index) => {
+                if (solution.userName === userName && solution.grade) {
+                    hasGrades = true;
+                    gradesHtml += `
+                        <div class="submission-item card">
+                            <div class="submission-info">
+                                <h3>${task.title}</h3>
+                                <p><strong>Оценка:</strong> <span class="grade-badge">${solution.grade}/10</span></p>
+                                <p><strong>Комментарий:</strong> ${solution.gradeComment || 'Без комментария'}</p>
+                                <p><strong>Дата отправки:</strong> ${solution.submittedAt}</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        }
+    });
+    
+    if (!hasGrades) {
+        studentGradesList.innerHTML = '<p>У вас пока нет оценок за задания</p>';
+    } else {
+        studentGradesList.innerHTML = gradesHtml;
+    }
+}
+
+// Функции темы
+function toggleTheme() {
+    isDarkTheme = !isDarkTheme;
+    document.body.classList.toggle('dark-theme', isDarkTheme);
+    document.getElementById('themeToggle').innerHTML = isDarkTheme ? 
+        '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    
+    localStorage.setItem('darkTheme', isDarkTheme);
+}
+
+// Функции для работы с файлами
+function handleTaskFiles(files) {
+    for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            taskFiles.push({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                data: e.target.result
+            });
+            updateTaskFilesPreview();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function handleSolutionFiles(files) {
+    for (let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            solutionFiles.push({
+                name: file.name,
+                type: file.type,
+                size: file.size,
+                data: e.target.result
+            });
+            updateSolutionFilesPreview();
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
+function updateTaskFilesPreview() {
+    const preview = document.getElementById('taskFilesPreview');
+    preview.innerHTML = '';
+    
+    taskFiles.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        
+        let previewContent = '';
+        if (file.type.startsWith('image/')) {
+            previewContent = `<img src="${file.data}" alt="${file.name}">`;
+        } else {
+            previewContent = `<i class="fas fa-file"></i>`;
+        }
+        
+        fileItem.innerHTML = `
+            ${previewContent}
+            <div class="file-info">
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="file-remove" onclick="removeTaskFile(${index})">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        preview.appendChild(fileItem);
+    });
+}
+
+function updateSolutionFilesPreview() {
+    const preview = document.getElementById('solutionFilesPreview');
+    preview.innerHTML = '';
+    
+    solutionFiles.forEach((file, index) => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        
+        let previewContent = '';
+        if (file.type.startsWith('image/')) {
+            previewContent = `<img src="${file.data}" alt="${file.name}">`;
+        } else {
+            previewContent = `<i class="fas fa-file"></i>`;
+        }
+        
+        fileItem.innerHTML = `
+            ${previewContent}
+            <div class="file-info">
+                <div class="file-name">${file.name}</div>
+                <div class="file-size">${formatFileSize(file.size)}</div>
+            </div>
+            <button class="file-remove" onclick="removeSolutionFile(${index})">
+                <i class="fas fa-times"></i>
+            </button>
+        `;
+        
+        preview.appendChild(fileItem);
+    });
+}
+
+function removeTaskFile(index) {
+    taskFiles.splice(index, 1);
+    updateTaskFilesPreview();
+}
+
+function removeSolutionFile(index) {
+    solutionFiles.splice(index, 1);
+    updateSolutionFilesPreview();
+}
+
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Функции камеры
+function setupCamera() {
+    captureBtn.addEventListener('click', capturePhoto);
+    cameraSwitchBtn.addEventListener('click', switchCamera);
+}
+
+function startCamera() {
+    stopCamera(); // Останавливаем предыдущий поток
+    
+    const constraints = {
+        video: {
+            facingMode: currentCamera
+        }
+    };
+    
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then(function(mediaStream) {
+                stream = mediaStream;
+                video.srcObject = mediaStream;
+                video.play();
+            })
+            .catch(function(error) {
+                console.error("Ошибка доступа к камере:", error);
+                showNotification('Не удалось получить доступ к камере', 'error');
+            });
+    }
+}
+
+function stopCamera() {
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+    }
+}
+
+function switchCamera() {
+    currentCamera = currentCamera === 'environment' ? 'user' : 'environment';
+    startCamera();
+}
+
+function capturePhoto() {
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    const photoData = canvas.toDataURL('image/png');
+    photos.push({
+        data: photoData,
+        timestamp: new Date().toLocaleString(),
+        type: isBeforeWork ? 'before' : 'after',
+        camera: currentCamera === 'environment' ? 'Задняя камера' : 'Передняя камера'
+    });
+    
+    updatePhotoPreview();
+    showNotification('Фотография сделана!', 'success');
+    
+    if (isBeforeWork) {
+        isBeforeWork = false;
+        checkInstruction.textContent = 'Сфотографируйте рабочее место после окончания работы';
+        submitCheckBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить окончательный отчет';
+    }
+}
+
+function updatePhotoPreview() {
+    photoPreview.innerHTML = '';
+    
+    photos.forEach((photo, index) => {
+        const photoItem = document.createElement('div');
+        photoItem.className = 'photo-item';
+        
+        photoItem.innerHTML = `
+            <img src="${photo.data}" alt="Фото рабочего места">
+            <div class="photo-info">
+                <p><strong>${photo.type === 'before' ? 'До работы' : 'После работы'}</strong></p>
+                <p><strong>Камера:</strong> ${photo.camera}</p>
+                <p>${photo.timestamp}</p>
+                <div class="photo-actions">
+                    <button class="btn btn-secondary" onclick="deletePhoto(${index})">
+                        <i class="fas fa-trash"></i> Удалить
+                    </button>
+                </div>
+            </div>
+        `;
+        
+        photoPreview.appendChild(photoItem);
+    });
+}
+
+function deletePhoto(index) {
+    photos.splice(index, 1);
+    updatePhotoPreview();
+}
+
+// Функции для кнопок повреждений
+function setDamageStatus(damage) {
+    hasDamage = damage;
+    damageDescription.style.display = damage ? 'block' : 'none';
+    
+    document.querySelectorAll('.damage-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    if (damage) {
+        document.querySelector('.btn-yes-damage').classList.add('active');
+    } else {
+        document.querySelector('.btn-no-damage').classList.add('active');
+    }
+}
+
+// Функции формы проверки
+function resetCheckForm() {
+    photos = [];
+    isBeforeWork = true;
+    hasDamage = false;
+    updatePhotoPreview();
+    damageDescription.style.display = 'none';
+    document.getElementById('damageDetails').value = '';
+    checkInstruction.textContent = 'Сфотографируйте рабочее место перед началом работы';
+    submitCheckBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Отправить отчет';
+    
+    document.querySelectorAll('.damage-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+}
+
+function submitCheck() {
+    if (photos.length === 0) {
+        showNotification('Сделайте хотя бы одну фотографию', 'error');
+        return;
+    }
+    
+    const damageDetails = hasDamage ? document.getElementById('damageDetails').value : '';
+    const userName = localStorage.getItem('userName');
+    const computerNumber = localStorage.getItem('computerNumber');
+    
+    const report = {
+        id: Date.now(),
+        photos: [...photos],
+        hasDamage: hasDamage,
+        damageDetails: damageDetails,
+        timestamp: new Date().toLocaleString(),
+        status: 'pending',
+        userName: userName,
+        computerNumber: computerNumber
+    };
+    
+    saveReport(report);
+    showNotification('Отчет успешно отправлен!', 'success');
+    
+    setTimeout(() => {
+        showPage('homePage');
+        updateRecentChecks();
+        stopCamera();
+    }, 1500);
+}
+
+// Функции администратора
+function loginAdmin() {
+    const code = document.getElementById('adminCode').value;
+    
+    if (code === ADMIN_CODE) {
+        showPage('adminPanel');
+        loadSubmissions();
+        document.getElementById('adminCode').value = '';
+    } else {
+        showNotification('Неверный код доступа', 'error');
+    }
+}
+
+function logoutAdmin() {
+    showPage('homePage');
+}
+
+function loadSubmissions() {
+    const submissionsList = document.getElementById('submissionsList');
+    const reports = getReports();
+    
+    if (reports.length === 0) {
+        submissionsList.innerHTML = '<p>Нет отправленных отчетов</p>';
+        return;
+    }
+    
+    submissionsList.innerHTML = '';
+    
+    reports.forEach(report => {
+        const submissionItem = document.createElement('div');
+        submissionItem.className = 'submission-item';
+        
+        const statusClass = `status-${report.status}`;
+        const statusText = report.status === 'pending' ? 'Ожидает' : 
+                         report.status === 'approved' ? 'Одобрено' : 'Отклонено';
+        
+        submissionItem.innerHTML = `
+            <div class="submission-info">
+                <h3>Отчет #${report.id}</h3>
+                <p><strong>Студент:</strong> ${report.userName || 'Не указано'} (Компьютер: ${report.computerNumber || 'Не указан'})</p>
+                <p><strong>Дата:</strong> ${report.timestamp}</p>
+                <p><strong>Повреждения:</strong> ${report.hasDamage ? 'Да' : 'Нет'}</p>
+                <p>${report.damageDetails ? 'Описание: ' + report.damageDetails : ''}</p>
+                <span class="status-badge ${statusClass}">${statusText}</span>
+            </div>
+            <div class="submission-actions">
+                <button class="btn btn-success" onclick="approveReport(${report.id})">
+                    <i class="fas fa-check"></i> Одобрить
+                </button>
+                <button class="btn btn-danger" onclick="openRejectModal(${report.id})">
+                    <i class="fas fa-times"></i> Отклонить
+                </button>
+            </div>
+        `;
+        
+        submissionsList.appendChild(submissionItem);
+    });
+}
+
+function openRejectModal(id) {
+    currentRejectId = id;
+    rejectModal.style.display = 'flex';
+}
+
+function closeRejectModal() {
+    rejectModal.style.display = 'none';
+    document.getElementById('rejectReason').value = '';
+}
+
+function confirmReject() {
+    const reason = document.getElementById('rejectReason').value;
+    if (!reason.trim()) {
+        showNotification('Укажите причину отклонения', 'warning');
+        return;
+    }
+    
+    rejectReport(currentRejectId, reason);
+    closeRejectModal();
+}
+
+function approveReport(id) {
+    const reports = getReports();
+    const reportIndex = reports.findIndex(r => r.id === id);
+    
+    if (reportIndex !== -1) {
+        reports[reportIndex].status = 'approved';
+        localStorage.setItem('workplaceReports', JSON.stringify(reports));
+        loadSubmissions();
+        showNotification('Отчет одобрен', 'success');
+    }
+}
+
+function rejectReport(id, reason) {
+    const reports = getReports();
+    const reportIndex = reports.findIndex(r => r.id === id);
+    
+    if (reportIndex !== -1) {
+        reports[reportIndex].status = 'rejected';
+        reports[reportIndex].rejectReason = reason;
+        localStorage.setItem('workplaceReports', JSON.stringify(reports));
+        loadSubmissions();
+        showNotification('Отчет отклонен', 'success');
+    }
+}
+
+// Функции для заданий
+function createTask() {
+    const title = document.getElementById('newTaskTitle').value;
+    const description = document.getElementById('newTaskDescription').value;
+    
+    if (!title.trim() || !description.trim()) {
+        showNotification('Заполните все поля', 'warning');
+        return;
+    }
+    
+    const task = {
+        id: Date.now(),
+        title: title,
+        description: description,
+        createdAt: new Date().toLocaleString(),
+        files: [...taskFiles],
+        solutions: []
+    };
+    
+    saveTask(task);
+    document.getElementById('newTaskTitle').value = '';
+    document.getElementById('newTaskDescription').value = '';
+    taskFiles = [];
+    updateTaskFilesPreview();
+    showNotification('Задание создано', 'success');
+    loadAdminTasks();
+}
+
+function saveTask(task) {
+    const tasks = getTasks();
+    tasks.push(task);
+    localStorage.setItem('workplaceTasks', JSON.stringify(tasks));
+}
+
+function getTasks() {
+    return JSON.parse(localStorage.getItem('workplaceTasks') || '[]');
+}
+
+function loadTasks() {
+    const tasksList = document.getElementById('tasksList');
+    const tasks = getTasks();
+    
+    if (tasks.length === 0) {
+        tasksList.innerHTML = '<p>Нет активных заданий</p>';
+        return;
+    }
+    
+    tasksList.innerHTML = '';
+    
+    tasks.forEach(task => {
+        const taskItem = document.createElement('div');
+        taskItem.className = 'task-item card';
+        
+        let filesHtml = '';
+        if (task.files && task.files.length > 0) {
+            filesHtml = '<div class="attached-files"><strong>Прикрепленные файлы:</strong><br>';
+            task.files.forEach(file => {
+                filesHtml += `<div class="file-attachment">
+                    <i class="fas ${file.type.startsWith('image/') ? 'fa-image' : 'fa-file'}"></i>
+                    ${file.name}
+                </div>`;
+            });
+            filesHtml += '</div>';
+        }
+        
+        taskItem.innerHTML = `
+            <div class="task-info">
+                <h3>${task.title}</h3>
+                <p>${task.description}</p>
+                ${filesHtml}
+                <p><small>Создано: ${task.createdAt}</small></p>
+            </div>
+            <div class="task-actions">
+                <button class="btn btn-success" onclick="openSolutionModal(${task.id})">
+                    <i class="fas fa-paper-plane"></i> Отправить решение
+                </button>
+            </div>
+        `;
+        
+        tasksList.appendChild(taskItem);
+    });
+}
+
+function loadAdminTasks() {
+    const adminTasksList = document.getElementById('adminTasksList');
+    const tasks = getTasks();
+    
+    if (tasks.length === 0) {
+        adminTasksList.innerHTML = '<p>Нет созданных заданий</p>';
+        return;
+    }
+    
+    adminTasksList.innerHTML = '';
+    
+    tasks.forEach(task => {
+        const taskItem = document.createElement('div');
+        taskItem.className = 'task-item card';
+        
+        const solutionsCount = task.solutions ? task.solutions.length : 0;
+        let filesCount = task.files ? task.files.length : 0;
+        
+        taskItem.innerHTML = `
+            <div class="task-info">
+                <h3>${task.title}</h3>
+                <p>${task.description}</p>
+                <p><small>Создано: ${task.createdAt}</small></p>
+                <p><small>Прикрепленных файлов: ${filesCount}</small></p>
+                <p><small>Решений: ${solutionsCount}</small></p>
+            </div>
+            <div class="task-actions">
+                <button class="btn btn-info" onclick="viewTaskSolutions(${task.id})">
+                    <i class="fas fa-eye"></i> Решения (${solutionsCount})
+                </button>
+                <button class="btn btn-danger" onclick="deleteTask(${task.id})">
+                    <i class="fas fa-trash"></i> Удалить
+                </button>
+            </div>
+        `;
+        
+        adminTasksList.appendChild(taskItem);
+    });
+}
+
+function loadGradingTasks() {
+    const gradingTasksList = document.getElementById('gradingTasksList');
+    const tasks = getTasks();
+    
+    if (tasks.length === 0) {
+        gradingTasksList.innerHTML = '<p>Нет заданий для оценивания</p>';
+        return;
+    }
+    
+    gradingTasksList.innerHTML = '';
+    
+    tasks.forEach(task => {
+        if (task.solutions && task.solutions.length > 0) {
+            const taskItem = document.createElement('div');
+            taskItem.className = 'task-item card';
+            
+            const ungradedCount = task.solutions.filter(s => !s.grade).length;
+            const gradedCount = task.solutions.filter(s => s.grade).length;
+            
+            taskItem.innerHTML = `
+                <div class="task-info">
+                    <h3>${task.title}</h3>
+                    <p>${task.description}</p>
+                    <p><small>Всего решений: ${task.solutions.length}</small></p>
+                    <p><small>Оценено: ${gradedCount}</small></p>
+                    <p><small>Ожидают оценки: ${ungradedCount}</small></p>
+                </div>
+                <div class="task-actions">
+                    <button class="btn btn-warning" onclick="openGradingModal(${task.id})">
+                        <i class="fas fa-graduation-cap"></i> Оценить работы
+                    </button>
+                </div>
+            `;
+            
+            gradingTasksList.appendChild(taskItem);
+        }
+    });
+    
+    if (gradingTasksList.innerHTML === '') {
+        gradingTasksList.innerHTML = '<p>Нет решений для оценивания</p>';
+    }
+}
+
+function openGradingModal(taskId) {
+    currentGradingTaskId = taskId;
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id === taskId);
+    
+    if (task && task.solutions) {
+        let solutionsHtml = '<h3>Решения студентов:</h3>';
+        
+        task.solutions.forEach((solution, index) => {
+            const gradeStatus = solution.grade ? 
+                `<span class="grade-badge">Оценка: ${solution.grade}/10</span>` : 
+                '<span class="status-badge status-pending">Ожидает оценки</span>';
+            
+            solutionsHtml += `
+                <div class="submission-item card">
+                    <div class="submission-info">
+                        <h4>Решение от ${solution.userName || 'Неизвестный студент'}</h4>
+                        <p><strong>Компьютер:</strong> ${solution.computerNumber || 'Не указан'}</p>
+                        <p><strong>Дата отправки:</strong> ${solution.submittedAt}</p>
+                        <p><strong>Текст решения:</strong> ${solution.text || 'Нет текста'}</p>
+                        <p><strong>Прикрепленных файлов:</strong> ${solution.files ? solution.files.length : 0}</p>
+                        ${gradeStatus}
+                    </div>
+                    <div class="submission-actions">
+                        <button class="btn btn-success" onclick="openGradeModal(${taskId}, ${index})">
+                            <i class="fas fa-edit"></i> ${solution.grade ? 'Изменить оценку' : 'Выставить оценку'}
+                        </button>
+                    </div>
+                </div>
+            `;
+        });
+        
+        // Показываем модальное окно со списком решений
+        alert("Просмотр решений для задания: " + task.title + "\n\nДля выставления оценки нажмите кнопку 'Выставить оценку' рядом с нужным решением.");
+    }
+}
+
+function openGradeModal(taskId, solutionIndex) {
+    currentGradingTaskId = taskId;
+    currentGradingSolutionIndex = solutionIndex;
+    
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id === taskId);
+    const solution = task.solutions[solutionIndex];
+    
+    document.getElementById('gradeModalTitle').textContent = `Оценка работы: ${task.title}`;
+    document.getElementById('gradeValue').value = solution.grade || 5;
+    document.getElementById('gradeComment').value = solution.gradeComment || '';
+    
+    gradeModal.style.display = 'flex';
+}
+
+function closeGradeModal() {
+    gradeModal.style.display = 'none';
+}
+
+function submitGrade() {
+    const gradeValue = parseInt(document.getElementById('gradeValue').value);
+    const gradeComment = document.getElementById('gradeComment').value;
+    
+    if (gradeValue < 1 || gradeValue > 10) {
+        showNotification('Оценка должна быть от 1 до 10', 'warning');
+        return;
+    }
+    
+    const tasks = getTasks();
+    const taskIndex = tasks.findIndex(t => t.id === currentGradingTaskId);
+    
+    if (taskIndex !== -1) {
+        tasks[taskIndex].solutions[currentGradingSolutionIndex].grade = gradeValue;
+        tasks[taskIndex].solutions[currentGradingSolutionIndex].gradeComment = gradeComment;
+        
+        localStorage.setItem('workplaceTasks', JSON.stringify(tasks));
+        closeGradeModal();
+        showNotification('Оценка сохранена', 'success');
+        loadGradingTasks();
+    }
+}
+
+function openSolutionModal(taskId) {
+    currentTaskId = taskId;
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id === taskId);
+    
+    if (task) {
+        document.getElementById('solutionModalTitle').textContent = `Решение: ${task.title}`;
+        submitSolutionModal.style.display = 'flex';
+        solutionFiles = [];
+        updateSolutionFilesPreview();
+    }
+}
+
+function closeSolutionModal() {
+    submitSolutionModal.style.display = 'none';
+    document.getElementById('solutionText').value = '';
+    solutionFiles = [];
+    updateSolutionFilesPreview();
+}
+
+function submitSolution() {
+    const solutionText = document.getElementById('solutionText').value;
+    const userName = localStorage.getItem('userName');
+    const computerNumber = localStorage.getItem('computerNumber');
+    
+    if (!solutionText.trim() && solutionFiles.length === 0) {
+        showNotification('Введите решение задания или прикрепите файлы', 'warning');
+        return;
+    }
+    
+    const tasks = getTasks();
+    const taskIndex = tasks.findIndex(t => t.id === currentTaskId);
+    
+    if (taskIndex !== -1) {
+        if (!tasks[taskIndex].solutions) {
+            tasks[taskIndex].solutions = [];
+        }
+        
+        tasks[taskIndex].solutions.push({
+            text: solutionText,
+            files: [...solutionFiles],
+            submittedAt: new Date().toLocaleString(),
+            userName: userName,
+            computerNumber: computerNumber
+        });
+        
+        localStorage.setItem('workplaceTasks', JSON.stringify(tasks));
+        closeSolutionModal();
+        showNotification('Решение отправлено', 'success');
+    }
+}
+
+function viewTaskSolutions(taskId) {
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id === taskId);
+    
+    if (task && task.solutions && task.solutions.length > 0) {
+        let solutionsText = `Решения для задания "${task.title}":\n\n`;
+        task.solutions.forEach((solution, index) => {
+            solutionsText += `Решение ${index + 1}:\n`;
+            solutionsText += `Студент: ${solution.userName || 'Не указано'}\n`;
+            solutionsText += `Компьютер: ${solution.computerNumber || 'Не указан'}\n`;
+            solutionsText += `Время отправки: ${solution.submittedAt}\n`;
+            solutionsText += `Текст решения: ${solution.text || 'Нет текста'}\n`;
+            solutionsText += `Прикрепленных файлов: ${solution.files ? solution.files.length : 0}\n`;
+            solutionsText += `Оценка: ${solution.grade ? solution.grade + '/10' : 'Не оценено'}\n`;
+            solutionsText += `Комментарий: ${solution.gradeComment || 'Нет комментария'}\n\n`;
+        });
+        alert(solutionsText);
+    } else {
+        alert('Для этого задания еще нет решений');
+    }
+}
+
+function deleteTask(taskId) {
+    if (confirm('Вы уверены, что хотите удалить это задание?')) {
+        const tasks = getTasks();
+        const updatedTasks = tasks.filter(t => t.id !== taskId);
+        localStorage.setItem('workplaceTasks', JSON.stringify(updatedTasks));
+        loadAdminTasks();
+        showNotification('Задание удалено', 'success');
+    }
+}
+
+// Вспомогательные функции
+function showNotification(message, type) {
+    notificationText.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function saveReport(report) {
+    const reports = getReports();
+    reports.push(report);
+    localStorage.setItem('workplaceReports', JSON.stringify(reports));
+}
+
+function getReports() {
+    return JSON.parse(localStorage.getItem('workplaceReports') || '[]');
+}
+
+function updateRecentChecks() {
+    const recentChecks = document.getElementById('recentChecks');
+    const reports = getReports();
+    const userName = localStorage.getItem('userName');
+    
+    const userReports = reports.filter(report => report.userName === userName);
+    
+    if (userReports.length === 0) {
+        recentChecks.innerHTML = '<p>У вас пока нет завершенных проверок</p>';
+        return;
+    }
+    
+    const recentReports = userReports.slice(-3).reverse();
+    
+    let html = '';
+    recentReports.forEach(report => {
+        const statusClass = `status-${report.status}`;
+        const statusText = report.status === 'pending' ? 'Ожидает' : 
+                         report.status === 'approved' ? 'Одобрено' : 'Отклонено';
+        
+        html += `
+            <div class="submission-item">
+                <div class="submission-info">
+                    <h3>Отчет #${report.id}</h3>
+                    <p>Дата: ${report.timestamp}</p>
+                    <p>Компьютер: ${report.computerNumber}</p>
+                    <span class="status-badge ${statusClass}">${statusText}</span>
+                </div>
+            </div>
+        `;
+    });
+    
+    recentChecks.innerHTML = html;
+}
+
+function loadData() {
+    const savedTheme = localStorage.getItem('darkTheme');
+    if (savedTheme === 'true') {
+        isDarkTheme = true;
+        document.body.classList.add('dark-theme');
+        document.getElementById('themeToggle').innerHTML = '<i class="fas fa-sun"></i>';
+    }
+    
+    updateUserInfo();
+    updateRecentChecks();
+    
+    // Загрузка сохраненного Python кода
+    const savedCode = localStorage.getItem('pythonCode');
+    if (savedCode) {
+        document.getElementById('pythonCode').value = savedCode;
+    }
+}
+    </script>
+</body>
+</html>
